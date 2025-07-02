@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from django.contrib import staticfiles
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,9 +28,9 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ["blog-post.onrender.com"]
+ALLOWED_HOSTS = ["blog_post.onrender.com"]
 
 
 # Application definition
@@ -83,8 +84,13 @@ WSGI_APPLICATION = 'blog_post.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
+
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
