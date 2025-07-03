@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework import generics, permissions
 from django.contrib.auth.models import User
@@ -22,6 +23,10 @@ class PostListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+    @swagger_auto_schema(auto_schema=None)
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 class PostRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
