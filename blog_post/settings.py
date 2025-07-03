@@ -97,6 +97,7 @@ DATABASES = {
 
 
 DEBUG = True
+# LOGIN_URL = '/your-login-url/'
 
 
 
